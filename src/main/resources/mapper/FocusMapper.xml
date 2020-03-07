@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.orc//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boke.mapper.IFocusMapper">
+	
+	<select id="findById" parameterType="map" resultType="map">
+	    select username,bokeid,b.userid,editordate,title,label,content,pics,type,readnum,evaluate from focus f,userinfo u,bokeinfo b 
+	    where f.focususerid=u.userid and f.focususerid=b.userid and f.userid=#{userid} limit #{page},#{rows}
+	</select>
+	
+	<select id="getTotal" resultType="int" parameterType="int">
+	     select COUNT(bokeid) from focus f,userinfo u,bokeinfo b where f.focususerid=u.userid and f.focususerid=b.userid and f.userid=#{userid};
+	</select>
+</mapper>

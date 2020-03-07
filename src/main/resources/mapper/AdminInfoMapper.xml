@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.orc//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.boke.mapper.IAdminInfoMapper">
+   <select id="findAll" resultType="AdminInfo">
+       select adminid, adminname,adminpass from admininfo order by adminid
+   </select>
+   
+   <select id="login" resultType="AdminInfo" parameterType="AdminInfo">
+   		select adminid, adminname,adminpass from admininfo where adminname=#{adminname} and adminpass=password(#{adminpass})
+   </select>
+   
+   <insert id="add" parameterType="AdminInfo">
+   		insert into admininfo values(0,#{adminname}, password(#{adminpass}))
+   </insert>
+   
+ 
+</mapper>

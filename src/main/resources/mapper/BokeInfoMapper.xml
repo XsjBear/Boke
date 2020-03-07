@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.orc//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boke.mapper.IBokeInfoMapper">
+
+	<select id="findAll" resultType="BokeInfo">
+		select * from
+		bokeinfo order by bokeid;
+	</select>
+
+	<insert id="add" parameterType="BokeInfo">
+		insert into bokeinfo
+		values(0,#{userid},#{editordate},#{title},#{label},#{content},#{pics},#{original},#{type},#{shape},#{state},#{readnum},#{evaluate})
+	</insert>
+
+	 <select id="findByBrokeid" parameterType="map" resultType="BokeInfo">
+   		select bokeid,userid,editordate,title,label,content,pics,original,tf.type,shape,state,readnum,evaluate from bokeinfo bf, typeinfo tf where bf.type=tf.type and bokeid=#{_parameter}
+   </select>
+   
+   <select id="findByType" parameterType="map" resultType="BokeInfo">
+   		select * from bokeinfo where userid=#{userid}  limit #{page}, #{rows}
+   </select>
+
+	<select id="finds" resultType="map" parameterType="Integer">
+		select @row_num := @row_num + 1 as sort,b.*, u.username, t.typename from
+		(select @row_number := 0) tmp_row_number, bokeinfo b,userinfo u,
+		typeinfo t where b.bokeid=#{bokeid} and b.userid = u.userid and
+		b.type=t.type;
+	</select>
+
+	
+
+	<select id="getTotalByUserId" resultType="int" parameterType="int">
+ 		select count(*) from bokeinfo where userid = #{_parameter}
+ 	</select>
+ 	
+
+	<select id="getAllTotalExceptSelf" resultType="int"
+		parameterType="BokeInfo">
+		select count(bokeid) from bokeinfo where userid <![CDATA[ <> ]]>
+		#{userid}
+	</select>
+
+	<select id="getRand" parameterType="BokeInfo" resultType="BokeInfo">
+		select * from bokeinfo where userid  <![CDATA[ <> ]]>
+		#{userid}
+		<if test=" type != 0 ">
+			and type = #{type}
+		</if>
+		ORDER BY rand() LIMIT #{readnum}
+	</select>
+
+	<select id="recentUpdata" resultType="BokeInfo" parameterType="BokeInfo">
+		select * from bokeinfo where userid = #{userid} order by bokeid limit
+		#{readnum}
+	</select>
+
+
+	<select id="clicRankList" resultType="BokeInfo" parameterType="int">
+		select * from bokeinfo order by readnum desc limit #{limitNum}
+	</select>
+
+
+	<select id="getSelfBokeTotal" resultType="int" parameterType="BokeInfo">
+		select count(bokeid) from bokeinfo where userid = #{userid}
+	</select>
+
+	<update id="addread"  parameterType="int">
+  		update bokeinfo set readnum = readnum + 1 where bokeid = #{_parameter}
+ 	 </update>
+
+
+</mapper>

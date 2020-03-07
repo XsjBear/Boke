@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首页_杨青个人博客 - 一个站在web前端设计之路的女技术员个人博客网站</title>
+<meta name="keywords" content="个人博客,杨青个人博客,个人博客模板,杨青" />
+<meta name="description" content="杨青个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/base.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script type="text/javascript" src="js/allInfo.js"></script>
+<script type="text/javascript" src="js/comm.js"></script>
+<script type="text/javascript" src="js/basic.js"></script>
+<script type="text/javascript">
+var page = 1;
+$(function(){
+	flush(page);
+});
+
+
+function flush(page) {
+	$.post("collect/finds",{page:page}, function(data){
+		var str = '';
+		$.each(data, function(index, item){
+			str += '<ul><li data-scroll-reveal="enter bottom over 1s" ><a href="details.html?id='+item.bokeid+'"><i><img src="../'+item.pics+'"></i><p class="picinfo">'+item.title+'</p></a></li></ul>';
+		},"json");
+		
+		$("#picbox").html("").append($(str));
+	});
+	
+	$.post("collect/total",null, function(data){
+		var str2 = '';
+		var totalpage =Math.ceil(data/1);
+		for (var i=1;i<=totalpage;i++) {
+			//if (i != page) {
+				str2 += '<a href="javascript:void(0)" onclick="pagenow(this)">'+i+'</a>&nbsp;';
+			//}
+		}
+		str2 +='<a href="#">下一页</a>&nbsp;';
+		str2 +='<a href="#">尾页</a>';
+		$("#totalsize").html("").append($(str2));
+	});
+	
+}
+
+function pagenow(pagenow) {
+	page = parseInt($(pagenow).text());
+	flush(page);
+}
+ 
+
+
+
+
+</script>
+
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+<script src="js/scrollReveal.js"></script>
+</head>
+<body>
+<header>
+  <div class="profile">
+    <div class="avatar fl"><img src="images/avatar.jpg"></div>
+    <div class="guanzhu fl">
+      <ul>
+        <li><img src="images/nianling.png"><span> 
+          <script language="javascript">
+ function   ages(str)   
+  {   
+        var   r   =   str.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);     
+        if(r==null)return   false;     
+        var   d=   new   Date(r[1],   r[3]-1,   r[4]);     
+        if   (d.getFullYear()==r[1]&&(d.getMonth()+1)==r[3]&&d.getDate()==r[4])   
+        {   
+              var   Y   =   new   Date().getFullYear();   
+              return("年龄   "+   (Y-r[1])   +"   周岁");   
+        }   
+        return("日期格式错误！");   
+  }   
+  document.write(ages("2015-03-09"));   
+  
+</script></span></li>
+        <li><img src="images/weizhi.png"><span>中国·北京</span></li>
+        <li><img src="images/qq.png"><span>QQ：476847113</span></li>
+        <li><img src="images/weixin.png"><span><img src="images/wxewm.png"></span></li>
+      </ul>
+    </div>
+    <div class="username">Baby的小家</div>
+  </div>
+  <nav>
+    <ul id="starlist">
+    </ul>
+  </nav>
+</header>
+<article>
+  <div class="picbox" id="picbox">
+  </div>
+  <div class="pagelist" id="pagelist">
+  
+  <li id="totalsize">
+
+  </li> 
+  </div>
+  <script>
+	if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+		(function(){
+			window.scrollReveal = new scrollReveal({reset: true});
+		})();
+	};
+</script> 
+</article>
+<div class="blank"></div>
+</body>
+</html>

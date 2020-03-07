@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.orc//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.boke.mapper.AttentionMapper">
+ 
+ 	<insert id="addAttention" parameterType="com.boke.bean.Attention">
+ 		insert into focus (userid,focususerid) values(#{userid},#{focususerid})
+ 	</insert> 
+ 	
+ 	<insert id="delAttention" parameterType="com.boke.bean.Attention">
+ 		delete from focus where userid = #{userid} and focususerid = #{focususerid}
+ 	</insert> 
+ 	
+ 	<select id="findByUserid" parameterType="com.boke.bean.Attention" resultType="com.boke.bean.Attention">
+ 		select * from focus where userid = #{userid}
+ 	</select>
+ 
+ 
+</mapper>

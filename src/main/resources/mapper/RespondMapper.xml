@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.orc//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.boke.mapper.IRespondMapper">
+   
+  <select id="selectAll" parameterType="int" resultType="Respond">
+		select * from respond  	where bokeid = #{bokeid}
+  </select>
+  
+  <insert id="addOne" parameterType="Respond">
+  	insert into respond (respondman , respondedman , type , aboutid , whichbelong , bokeid , respondtime , respondcontent) values (#{respondman},#{respondedman},#{type},#{aboutid},#{whichbelong},#{bokeid},#{respondtime},#{respondcontent});
+  
+  </insert>
+
+ 
+</mapper>

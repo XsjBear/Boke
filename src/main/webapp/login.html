@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>登陆注册</title>
+<!-- 链接外部文件 -->
+<link rel="stylesheet" href="css/login.css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/register.js"></script>
+<script type="text/javascript" src="js/basic.js"></script>
+
+<script type="text/javascript">
+function userLogin(){
+	var account =$.trim($("#account").val());
+	var pwd = $.trim($("#pwd").val());
+	if(account =="" || pwd == ""){
+		return;
+	}
+	$.post("userInfo/login",{username:account,userpass:pwd},function(data){
+		console.info(data);
+		data = parseInt($.trim(data));
+		if(data > 0){
+			location.href='index.html';
+		}else{
+			alert("账号或密码错误，请重新输入...");
+		}
+	},"text");
+}
+</script>
+
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous" />
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous" />
+
+</head>
+<body>
+
+	<div class="mainBody">
+		<ul class="nav nav-pills" style="margin-left: 150px;">
+			<li role="presentation" class="active">
+				<button type="button" class="btn btn-primary "
+					onclick="changeLoginStyle()">登陆</button>
+			</li>
+			<li role="presentation"><button type="button"
+					class="btn btn-primary " onclick="changeRegisterStyle()">注册</button></li>
+		</ul>
+
+		<!-- 登陆模块 -->
+		<div style="display: block;" id="Log" class="Login">
+			<div class="form-group">
+				<label for="exampleInputEmail1">用户名</label> <input type="text"
+					class="form-control" id="account" placeholder="用户名">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">密码</label> <input type="password"
+					class="form-control" id="pwd" placeholder="密码">
+			</div>
+			<button type="button" id="Login_Button"
+				class="btn btn-primary btn-lg" onclick="userLogin()">&nbsp;&nbsp;&nbsp;登&nbsp;陆&nbsp;&nbsp;&nbsp;</button>
+
+
+		</div>
+
+		<!-- 注册模块 -->
+		<form id="myform">
+			<ul style="display: none;" id="Reg" class="Register">
+				<li class="form-group">
+				    <label for="exampleInputusername">用户名</label>
+					<input type="text" class="form-control" name="username" id="username" placeholder="用户名">
+				</li>
+				<li class="form-group">
+				    <label for="exampleInputuserpass">密码</label>
+					<input type="password" class="form-control" name="userpass" id="pwd" placeholder="密码">
+				</li>
+				<li class="form-group">
+				    <label for="exampleInputrealname">真实姓名</label>
+					<input type="text" class="form-control" name="realname" id="realname" placeholder="真实姓名">
+			    </li>
+				<li class="form-group">
+				    <label for="exampleInputbirthday">出生日期</label>
+					<input type="text" class="form-control" name="birthday" id="birthday" placeholder="出生日期">
+				</li>
+
+				<li class="form-group">
+				    <label for="exampleInputsex">性别</label>
+					<input type="text" class="form-control" name="sex" id="sex" placeholder="性别">
+				</li>
+
+
+				<li class="form-group">
+				    <label for="exampleInputcontackway">联系方式</label>
+					<input type="text" class="form-control" name="contackway" id="contackway" placeholder="联系方式">
+				</li>
+
+				<li class="form-group">
+				    <label for="exampleInputaddress">家庭住址</label>
+					<input type="text" name="address" id="address" class="form-control" placeholder="家庭住址">
+				</li>
+				<li class="form-group">
+				    <label for="exampleInputwork">行业</label>
+					<input type="text" class="form-control"  name="work" id="work" placeholder="行业">
+				</li>
+				<li class="form-group">
+				    <label for="exampleInputemail">邮箱</label>
+					<input type="text" class="form-control" name="email" id="email" placeholder="邮箱">
+				</li>
+				<li class="form-group">
+				    <label for="exampleInputcode">验证码</label>
+					<input type="text" class="form-control" name="code" id="code" placeholder="请输入验证码"> 
+					<input type="button" id="getCode" name="" value="获取验证码">
+				</li>
+				
+				<li>
+				    <input type="button" id="register_Button"
+					class="btn btn-primary btn-lg" onclick="reg()" value="注册"/>
+				</li>
+			</ul>
+		</form>
+
+	</div>
+
+
+
+	<!-- 背景 -->
+	<canvas id="background"></canvas>
+	<script async type="text/javascript" src="js/background.js"></script>
+
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+
+
+	<div
+		style="text-align: center; margin: 50px 0; font: normal 14px/24px 'MicroSoft YaHei';"></div>
+
+	<script type="text/javascript" src="js/Ajax.js"></script>
+	<script src="js/register.js"></script>
+
+</body>
+</html>
